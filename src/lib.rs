@@ -57,7 +57,7 @@ mod tests {
         let room_name = "hall";
         let rooms = HashMap::from([(room_name.to_string(), devices)]);
         let house = SmartHouse::new("home", rooms);
-        let provider = OwningDeviceInfoProvider { socket: socket };
+        let provider = OwningDeviceInfoProvider { socket };
 
         let report = house.create_report(&provider);
         let report_emulated = format!(
