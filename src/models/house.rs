@@ -1,40 +1,41 @@
-use crate::providers::DeviceInfoProvider;
-use std::collections::{HashMap, HashSet};
+use super::room::Room;
+use std::collections::HashMap;
+use crate::Device;
 
 pub struct SmartHouse {
-    #[allow(dead_code)]
-    name: String,
-    rooms: HashMap<String, HashSet<String>>, // K - room name, V - list of devices for room
+    rooms: HashMap<String, Room>,
 }
 
 impl SmartHouse {
-    pub fn new(name: &str, rooms: HashMap<String, HashSet<String>>) -> Self {
-        SmartHouse {
-            name: name.to_string(),
-            rooms,
-        }
+    pub fn new(rooms: HashMap<String, Room>) -> Self {
+        SmartHouse { rooms }
     }
 
-    fn get_rooms(&self) -> Vec<&String> {
+    fn get_room_names(&self) -> Vec<&String> {
         let mut rooms = Vec::from_iter(self.rooms.keys());
+        rooms.sort();
         rooms.sort();
         rooms
     }
 
-    fn get_devices(&self, room: &str) -> Vec<&String> {
-        let mut devices = Vec::from_iter(self.rooms.get(room).expect("Room not found"));
-        devices.sort();
-        devices
-    }
-
-    pub fn create_report(&self, provider: &dyn DeviceInfoProvider) -> String {
+    pub fn create_report(&self) -> String {
         let mut report: String = String::new();
-        for room in self.get_rooms().iter() {
-            for device in self.get_devices(room).iter() {
-                if provider.devices().contains(device) {
-                    report.push_str(&provider.status(room, device));
-                    report.push('\n');
+
+        for room_name in self.get_room_names().iter() {
+            let room = self.rooms.get(*room_name).expect("Room not found");
+            report.push_str(&format!("Room: {}\n", room_name));
+            for device_name in room.get_devices_names().iter() {
+                let device = room.devices.get(*device_name).expect("Device not found");
+                // let device_state = device.
+                match device {
+                    Device::SocketDevice(socket) => {
+                        report.push_str(&format!("Socket: {}, status: ({})\n", device_name, socket));
+                    },
+                    Device::ThermoDevice(socket) => {
+                        report.push_str(&format!("Thermo: {}, status: ({})\n", device_name, socket));
+                    }
                 }
+                
             }
         }
         report

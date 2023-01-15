@@ -1,15 +1,13 @@
 use std::fmt::{self};
 
-pub struct SmartSocket {
-    pub name: String,
+pub struct Socket {
     pub on: bool,
     pub power: i32,
 }
 
-impl SmartSocket {
-    pub fn new(name: &str, on: bool, power: i32) -> SmartSocket {
-        SmartSocket {
-            name: name.to_string(),
+impl Socket {
+    pub fn new(on: bool, power: i32) -> Socket {
+        Socket {
             on,
             power,
         }
@@ -26,13 +24,19 @@ impl SmartSocket {
     }
 }
 
-impl fmt::Display for SmartSocket {
+impl fmt::Display for Socket {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         write!(
             f,
-            "Socket with power {} turned {}.",
+            "POWER: {}, ON: {}",
             self.power,
             if self.on { "on" } else { "off" }
         )
     }
 }
+
+// impl Device for Socket {
+//     fn state(&self) -> String {
+//         format!("{}", self)
+//     }
+// }

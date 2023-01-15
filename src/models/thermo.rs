@@ -1,14 +1,12 @@
 use std::fmt::{self};
 
-pub struct SmartThermometer {
-    pub name: String,
+pub struct Thermo {
     pub temperature: i32,
 }
 
-impl SmartThermometer {
-    pub fn new(name: &str, temperature: i32) -> SmartThermometer {
-        SmartThermometer {
-            name: name.to_string(),
+impl Thermo {
+    pub fn new(temperature: i32) -> Thermo {
+        Thermo {
             temperature,
         }
     }
@@ -23,8 +21,8 @@ impl SmartThermometer {
         println!("{}", self);
     }
 }
-impl fmt::Display for SmartThermometer {
+impl fmt::Display for Thermo {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        write!(f, "Thermometer's temperature is {}.", self.temperature)
+        write!(f, "VALUE: {}", self.temperature)
     }
 }
