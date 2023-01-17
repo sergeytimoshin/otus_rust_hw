@@ -6,7 +6,6 @@ pub struct Room {
 }
 
 impl Room {
-
     pub fn new(devices: HashMap<String, Device>) -> Room {
         Room {
             devices
@@ -18,6 +17,4 @@ impl Room {
         device_names.sort();
         device_names
     }
-
-
 }

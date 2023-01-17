@@ -34,9 +34,3 @@ impl fmt::Display for Socket {
         )
     }
 }
-
-// impl Device for Socket {
-//     fn state(&self) -> String {
-//         format!("{}", self)
-//     }
-// }
