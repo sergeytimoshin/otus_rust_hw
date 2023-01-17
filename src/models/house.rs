@@ -1,6 +1,6 @@
-use super::room::Room;
-use std::collections::HashMap;
+use super::{room::Room, Socket};
 use crate::Device;
+use std::collections::HashMap;
 
 pub struct SmartHouse {
     rooms: HashMap<String, Room>,
@@ -29,13 +29,14 @@ impl SmartHouse {
                 // let device_state = device.
                 match device {
                     Device::SocketDevice(socket) => {
-                        report.push_str(&format!("Socket: {}, status: ({})\n", device_name, socket));
-                    },
+                        report
+                            .push_str(&format!("Socket: {}, status: ({})\n", device_name, socket));
+                    }
                     Device::ThermoDevice(socket) => {
-                        report.push_str(&format!("Thermo: {}, status: ({})\n", device_name, socket));
+                        report
+                            .push_str(&format!("Thermo: {}, status: ({})\n", device_name, socket));
                     }
                 }
-                
             }
         }
         report

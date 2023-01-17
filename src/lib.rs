@@ -45,7 +45,7 @@ mod tests {
     use super::*;
 
     #[test]
-    fn test_owning_device_report() {
+    fn test_device_report() {
         let socket_name = "socket";
         let socket = Socket::new(true, 1);
         let socket_status = socket.to_string();
@@ -63,7 +63,7 @@ mod tests {
         let report = house.create_report();
 
         let report_emulated = format!(
-            "Room: {}\n{}, status: ({})\n",
+            "Room: {}\nSocket: {}, status: ({})\n",
             room_name, socket_name, socket_status
         );
         assert_eq!(report, report_emulated);
