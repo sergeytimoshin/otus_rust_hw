@@ -7,10 +7,7 @@ pub struct Socket {
 
 impl Socket {
     pub fn new(on: bool, power: i32) -> Socket {
-        Socket {
-            on,
-            power,
-        }
+        Socket { on, power }
     }
 
     #[allow(dead_code)]

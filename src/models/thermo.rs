@@ -6,9 +6,7 @@ pub struct Thermo {
 
 impl Thermo {
     pub fn new(temperature: i32) -> Thermo {
-        Thermo {
-            temperature,
-        }
+        Thermo { temperature }
     }
 
     #[allow(dead_code)]
