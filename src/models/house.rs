@@ -1,11 +1,20 @@
 use super::room::Room;
 use crate::Device;
 use std::collections::HashMap;
+use std::fmt;
 
 #[derive(Debug, PartialEq)]
 pub enum HouseError {
     RoomsNotFound,
 }
+
+impl fmt::Display for HouseError {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        write!(f, "Rooms not found!")
+    }
+}
+
+impl std::error::Error for HouseError {}
 
 pub struct House {
     rooms: HashMap<String, Room>,
